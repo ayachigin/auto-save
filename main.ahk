@@ -17,15 +17,19 @@ GroupAdd autosaveahk, ahk_class TNekoPaintForm
 GroupAdd autosaveahk, ahk_exe FireAlpaca.exe
 ;GroupAdd autosaveahk, 
 
-
-
 #Persistent
 SetTimer,autosave,1000
-return
 
 ; Ž©“®•Û‘¶ŠÔŠu(•b)
-autosaveInterval = 600
+;IniRead, OutputVar, Filename[, Section, Key , Default]
+IniRead, autosaveInterval, config.ini, config, interval , 600
+IniRead, threshold, config.ini, config, threshold , 3
+autosaveInterval:=autosaveInterval*60
+threshold := threshold * 1000
 delay := 0
+;Gui, Submit  ; Save the input from the user to each control's associated variable.
+;MsgBox %autosaveInterval%•ªŠÔŠu‚Å%threshold%•bˆÈãŽè‚ªŽ~‚Ü‚Á‚½‚çŽ©“®“I‚É•Û‘¶‚µ‚Ü‚·.
+return
 
 autosave:
         if delay > 0
@@ -34,13 +38,13 @@ autosave:
                 return
         }
 
-        If A_TimeIdlePhysical>3000
+        If (threshold == 0) || (A_TimeIdlePhysical > %threshold%)
         {
                 IfWinActive, ahk_group autosaveahk
                 {
                         send,^s
                         ; ŽŸ‚É•Û‘¶‚ðŽŽ‚Ý‚é‚Ü‚Å‚ÌŽžŠÔ(•b)
-                        delay=autosaveInterval
+                        delay:=autosaveInterval
                         return
                 }
         }
