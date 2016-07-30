@@ -1,5 +1,3 @@
-;ƒXƒ^[ƒgƒAƒbƒv‚É“o˜^
-;FileCreateShortcut, %A_ScriptName%, %A_Startup%\‚¨ŠG‚©‚«Ž©“®•Û‘¶.lnk
 
 ;Clip Studio
 GroupAdd autosaveahk, ahk_class 742DEA58-ED6B-4402-BC11-20DFC6D08040
@@ -18,18 +16,22 @@ GroupAdd autosaveahk, ahk_exe FireAlpaca.exe
 ;GroupAdd autosaveahk, 
 
 #Persistent
-SetTimer,autosave,1000
 
 ; Ž©“®•Û‘¶ŠÔŠu(•b)
 ;IniRead, OutputVar, Filename[, Section, Key , Default]
-IniRead, autosaveInterval, config.ini, config, interval , 600
-IniRead, threshold, config.ini, config, threshold , 3
+IniRead, autosaveInterval, config.ini, config, interval , 10
+IniRead, threshold, config.ini, config, threshold , 1
+
+MsgBox,,‚¨ŠG‚©‚«Ž©“®•Û‘¶, %autosaveInterval%•ªŠÔŠu‚Å%threshold%•bˆÈãŽè‚ªŽ~‚Ü‚Á‚½‚çŽ©“®“I‚É•Û‘¶‚µ‚Ü‚·,5
+
+;•Ï”‰Šú‰»
 autosaveInterval:=autosaveInterval*60
 threshold := threshold * 1000
 delay := 0
 ;Gui, Submit  ; Save the input from the user to each control's associated variable.
-;MsgBox %autosaveInterval%•ªŠÔŠu‚Å%threshold%•bˆÈãŽè‚ªŽ~‚Ü‚Á‚½‚çŽ©“®“I‚É•Û‘¶‚µ‚Ü‚·.
-return
+
+SetTimer,autosave,1000
+
 
 autosave:
         if delay > 0
