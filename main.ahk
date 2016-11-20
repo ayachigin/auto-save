@@ -5,6 +5,9 @@ GroupAdd autosaveahk, ahk_class 742DEA58-ED6B-4402-BC11-20DFC6D08040
 ;SAI
 GroupAdd autosaveahk, ahk_class sfl_window_class
 
+;SAI2
+GroupAdd autosaveahk, ahk_class sflRootWindow
+
 ;AZPainter2
 GroupAdd autosaveahk, ahk_exe AzPainter2.exe
 
