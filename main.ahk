@@ -18,12 +18,16 @@ GroupAdd autosaveahk, ahk_class TNekoPaintForm
 GroupAdd autosaveahk, ahk_exe FireAlpaca.exe
 ;GroupAdd autosaveahk, 
 
+;OpenCanvas
+GroupAdd autosaveahk, ahk_class Tmainform
+
+
 #Persistent
 
 ; Ž©“®•Û‘¶ŠÔŠu(•b)
 ;IniRead, OutputVar, Filename[, Section, Key , Default]
-IniRead, autosaveInterval, config.ini, config, interval , 10
-IniRead, threshold, config.ini, config, threshold , 1
+IniRead, autosaveInterval, %A_ScriptDir%\config.ini, config,interval
+IniRead, threshold, %A_ScriptDir%\config.ini, config, threshold
 
 MsgBox,,‚¨ŠG‚©‚«Ž©“®•Û‘¶, %autosaveInterval%•ªŠÔŠu‚Å%threshold%•bˆÈãŽè‚ªŽ~‚Ü‚Á‚½‚çŽ©“®“I‚É•Û‘¶‚µ‚Ü‚·,5
 
@@ -36,7 +40,10 @@ delay := 0
 SetTimer,autosave,1000
 
 
-autosave:
+autosave() {
+        global delay
+        global threshold
+        global autosaveInterval
         if delay > 0
         {
                 delay := delay - 1
@@ -54,3 +61,4 @@ autosave:
                 }
         }
         return 
+}
