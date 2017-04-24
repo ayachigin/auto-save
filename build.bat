@@ -8,4 +8,3 @@ copy Žg‚¢•û.txt .\‚¨ŠG‚©‚«Ž©“®•Û‘¶\
 copy ƒ‰ƒCƒZƒ“ƒX.txt .\‚¨ŠG‚©‚«Ž©“®•Û‘¶\
 zip -r .\‚¨ŠG‚©‚«Ž©“®•Û‘¶.zip .\‚¨ŠG‚©‚«Ž©“®•Û‘¶\
 copy .\‚¨ŠG‚©‚«Ž©“®•Û‘¶.zip C:\home\projects\html\hakyll\ayachi\programs\
-eshell
