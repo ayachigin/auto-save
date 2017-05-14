@@ -62,3 +62,76 @@ autosave() {
         }
         return 
 }
+
+^~s::backup()
+
+backup() {
+        if WinActive("ahk_class sfl_window_class") {
+                backupCanvas("sfl_window_class")
+        }
+
+        if WinActive("ahk_class sflRootWindow") {
+                backupCanvas("sflRootWindow")
+        }
+}
+
+;^q::test()
+
+;test() {
+        ;WinGetTitle, Title, ahk_class sfl_window_class
+;        FileName := getFilePath("Preview 2017.1.19 - D:\hoge\foo\new.sai")
+;        MsgBox % FileName
+;        MsgBox % 
+;}
+
+getFilePath(title)
+{
+        path := RegexReplace(title, ".*- *", "")
+        path := RegexReplace(path, "\( *\* *\)$", "")
+        path := RegexReplace(path, "^Windows", "")
+        path := RegexReplace(path, "\((.:)\)", "$1")
+        path := RegexReplace(path, " /", "/")
+        path := RegexReplace(path, "/ ", "/")
+        path := RegexReplace(path, "^ *", "")
+        path := RegexReplace(path, " *$", "")
+        return path
+}
+
+getFileName(path) {
+        fileName := RegexReplace(path, "(.*\/)*", "")
+        return fileName
+}
+
+dropExt(fileName) {
+        return RegexReplace(fileName, "\..*$", "")
+}
+
+takeExt(fileName) {
+        return RegexReplace(fileName,  "^[^.]*.", "")
+}
+
+backupCanvas(Name) {
+        MsgBox,,,バックアップの準備中です,1
+        Sleep, 30000
+        WinGetTitle, Title, ahk_class %Name%
+        FilePath      := getFilePath(Title)
+        FileName      := getFileName(FilePath)
+        FileNameNoExt := dropExt(FileName)
+        Ext           := takeExt(FileName)
+
+        FormatTime, Now, ,yyyyMMddHHmmss
+        Dest := A_ScriptDir . "\backup\" . FileNameNoExt . Now . "." . Ext
+        Source := FilePath
+        Source := RegexReplace(Source, "/", "\")
+        if FileExist(Source)
+        {
+                FileCopy, %Source%, %Dest%
+                if ErrorLevel = 0
+                {
+                        MsgBox, バックアップ出来ました（たぶん）
+                }
+                else {
+                        MsgBox, ファイルのコピーに失敗しました
+                }
+        }
+}
